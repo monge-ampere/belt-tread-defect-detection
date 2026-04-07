@@ -1,0 +1,10 @@
+# _config.yml
+title: "Belt and Tread Defect Detection"
+description: "Industrial belt and tread defect detection based on structured-light height maps, geometric measurement, and transform-domain structural patterns."
+theme: minima
+lang: zh-CN
+timezone: Asia/Qingdao
+markdown: kramdown
+permalink: pretty
+url: "https://monge-ampere.github.io"
+baseurl: "/belt-tread-defect-detection"
