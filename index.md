@@ -1,7 +1,9 @@
 ---
-layout: default
-title: Belt and Tread Defect Detection
+title: "Belt and Tread Defect Detection"
+permalink: /
 ---
+
+# Belt and Tread Defect Detection
 
 # 从高度场到结构型谱：一个带束层与胎面缺陷检测项目的技术回顾
 
