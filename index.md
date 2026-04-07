@@ -1,25 +1,28 @@
 ---
 layout: default
-title: "Belt and Tread Defect Detection"
-permalink: /
+title: "从高度场到结构型谱：一个带束层与胎面缺陷检测项目的技术回顾"
+description: "A technical review of an industrial belt and tread defect detection system based on structured-light height maps, geometric measurement, and transform-domain structural patterns."
 ---
 
-<script>
-window.MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']]
-  },
-  svg: {
-    fontCache: 'global'
-  }
-};
-</script>
-<script id="MathJax-script" async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-</script>
+# 从高度场到结构型谱
 
-# 从高度场到结构型谱：一个带束层与胎面缺陷检测项目的技术回顾
+**A technical review of an industrial belt and tread defect detection system based on structured-light height maps, geometric measurement, and transform-domain structural patterns**
+
+这篇文章整理的是我在研究生阶段做过的一套带束层与胎面在线缺陷检测方案。它不是一个后来被完整写成论文或正式产品文档的项目；更准确地说，它是一套当时已经在真实现场跑通、但由于后续人事与发表因素，始终没有被正式写下来的工业视觉系统。
+
+它真正有价值的地方，并不在于“做了一个轮胎缺陷检测模块”，而在于它把原本容易被理解为普通图像识别的问题，改写成了一组更自然的**几何测量与变换域判别问题**：  
+对于带束层，核心是围绕料宽、中心偏差、断差以及料头料尾关系所展开的实时参数测量；  
+对于胎面，核心则是通过线性变换与投影，把原空间中难以直接稳定判断的接头状态，组织成一组可解释、可比较的**结构型谱**。
+
+> **核心思想**  
+> 输入并不是普通灰度图，而是结构光高度图。  
+> 带束层部分并不依赖复杂分类模型，而是通过基准平面、周期缓冲、边界统计与局部模板匹配，把问题还原为几何参数测量与接头位移判定。  
+> 胎面部分则通过一个面向刀口结构的线性变换与投影，把局部几何在变换域中压缩为稳定的灰度表象，从而将定位与异常判别统一到同一个表示空间中。
+
+---
+
+> **English Abstract**  
+> This article reconstructs an industrial online inspection scheme I developed during graduate study for belt and tread defect detection on a tire building drum. It was never fully written up as a paper or formal product document, even though its core algorithmic pipeline had already been implemented and validated in a real production setting. The value of the system did not lie merely in “detecting defects,” but in reformulating the task into a more natural combination of geometric measurement and transformed-domain pattern analysis. For the belt layer, the problem was organized around real-time measurement of width, center deviation, edge discontinuity, and head-tail relations. For the tread layer, a linear transform and projection were used to convert difficult local joint geometry in the original height field into stable structural patterns in a transformed domain, thereby unifying localization and defect discrimination in a single representation.
 
 > 这是我研究生阶段最成功的工业视觉项目之一。  
 > 由于后续人事与发表因素，这个项目当年没有形成正式论文或系统文档；原始配置文件与部分检测图像后来也已散失。  
