@@ -1,9 +1,8 @@
 ---
+layout: default
 title: "Belt and Tread Defect Detection"
 permalink: /
 ---
-
-# Belt and Tread Defect Detection
 
 # 从高度场到结构型谱：一个带束层与胎面缺陷检测项目的技术回顾
 
@@ -20,7 +19,7 @@ permalink: /
 这套算法不是脱离现场节拍的离线实验，而是直接嵌入轮胎成型检测设备中的在线模块。它需要与相机、光源、上位机、机械节拍和编码器同步配合，在连续进图的条件下完成定位、参数测量与异常判别。
 
 <figure style="text-align:center;">
-  <img src="{{ '/assets/images/belt-tread-defect-detection/site-equipment.jpg' | relative_url }}" alt="现场设备图" style="max-width: 90%; height: auto;">
+  <img src="{{ '/assets/images/site-equipment.jpg' | relative_url }}" alt="现场设备图" style="max-width: 90%; height: auto;">
   <figcaption>
     图 1：轮胎成型现场的 3D 相机及其检测设备。该项目不是离线图像分析，而是直接嵌入产线节拍中的在线检测模块。
   </figcaption>
@@ -31,7 +30,7 @@ permalink: /
 从现存材料来看，系统已经能够稳定完成带束层料位、带束层料头以及胎面料头的关键定位。这说明该项目并非停留在想法层面，而是已经形成了能够服务于后续参数测量与缺陷判别的有效检测链条。
 
 <figure style="text-align:center;">
-  <img src="{{ '/assets/images/belt-tread-defect-detection/key-positioning-results.png' | relative_url }}" alt="带束层与胎面定位效果图" style="max-width: 92%; height: auto;">
+  <img src="{{ '/assets/images/key-positioning-results.png' | relative_url }}" alt="带束层与胎面定位效果图" style="max-width: 92%; height: auto;">
   <figcaption>
     图 2：带束层与胎面关键定位结果。前两图为带束层料位/料头提取，第三图为胎面料头提取，红线表示抬头定位范围。
   </figcaption>
@@ -43,15 +42,15 @@ permalink: /
 
 <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
   <figure style="text-align:center; width:31%;">
-    <img src="{{ '/assets/images/belt-tread-defect-detection/field-overlap.png' | relative_url }}" alt="搭接" style="width:100%; height:auto;">
+    <img src="{{ '/assets/images/field-overlap.png' | relative_url }}" alt="搭接" style="width:100%; height:auto;">
     <figcaption>搭接</figcaption>
   </figure>
   <figure style="text-align:center; width:31%;">
-    <img src="{{ '/assets/images/belt-tread-defect-detection/field-upwarp.png' | relative_url }}" alt="翘起" style="width:100%; height:auto;">
+    <img src="{{ '/assets/images/field-upwarp.png' | relative_url }}" alt="翘起" style="width:100%; height:auto;">
     <figcaption>翘起</figcaption>
   </figure>
   <figure style="text-align:center; width:31%;">
-    <img src="{{ '/assets/images/belt-tread-defect-detection/field-gap.png' | relative_url }}" alt="虚接" style="width:100%; height:auto;">
+    <img src="{{ '/assets/images/field-gap.png' | relative_url }}" alt="虚接" style="width:100%; height:auto;">
     <figcaption>虚接</figcaption>
   </figure>
 </div>
@@ -112,29 +111,65 @@ permalink: /
 
 得到多个剖面上的头尾位置后，再综合其相对位移，即可判断虚接或搭接量。
 
-## 6. 胎面检测的核心：从几何定位到结构型谱
+## 6. 胎面检测的核心：从线性变换到结构型谱
 
-胎面检测中，最初真正困难的，并不是“如何分类缺陷”，而是**如何稳定定位料头刀口位置**。
+胎面检测中，最初真正困难的，并不是“如何分类缺陷”，而是如何稳定定位料头刀口位置。
 
-在原始结构光高度图上，刀口区域往往受到曲面、热软化、压合动作与局部形变的共同影响，因此并不适合直接按普通二维图像边缘去理解。我后来采用的关键做法，是先把有效点提取出来，再做一个线性变换，使刀痕平面在新坐标中变得更接近垂直状态；随后，将变换后的结果投影到新的图像平面中。这样，原本在原空间中不够清晰的几何关系，会在投影图中表现为更稳定的灰度结构。
+在原始结构光高度图上，刀口区域往往受到曲面、热软化、压合动作与局部形变的共同影响，因此并不适合直接按普通二维图像边缘去理解。我的做法是先从预处理后的高度图中提取非零点，将其视为三维点集
+\[
+\mathcal{P}=\{(x,y,z)\}.
+\]
 
-更重要的是，这个变换最初虽然是为**定位**而设计的，但后来我发现，它事实上构造出了一个非常自然的**判别域**。不同接头状态在该变换域中的表象并不是任意的，而是呈现出稳定的灰度拓扑差异：
+随后，对每个点施加一个绕 \(X\) 轴的线性变换
+\[
+p' = R_x(\theta)p,
+\qquad
+R_x(\theta)=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & \cos\theta & -\sin\theta\\
+0 & \sin\theta & \cos\theta
+\end{pmatrix},
+\]
+即
+\[
+x' = x,\qquad
+y' = y\cos\theta - z\sin\theta,\qquad
+z' = y\sin\theta + z\cos\theta.
+\]
 
-- **正常对接**：通常表现为只有灰度值均衡的矩形区域图像；有时中间可能仅有一条灰度略高、但并不突出的浅曲线，除此之外没有其他明显特征。
-- **搭接**：在灰度值均衡的矩形区域中间出现一条水平高灰度曲线，且紧贴该高灰度曲线的上方出现一条比胎面灰度低得多的低灰度区域。
-- **翘起**：同样在矩形区域中间出现一条水平高灰度曲线，但紧贴该高灰度曲线的低灰度区域出现在其下方。
-- **未重合 / 虚接类**：通常表现为在灰度值均衡的矩形区域中间出现一条水平高灰度曲线，除此之外没有搭接或翘起那样紧贴高灰度曲线的明显低灰度区域。
+这一步的目的，不是做一般性的空间旋转，而是将原来刀痕附近倾斜、弯曲、不利于直接观察的局部几何，送到一个更自然的参考系中，使刀痕平面在该坐标系里更接近垂直状态。
 
-也就是说，我最初为了“找位置”所构造出的线性变换与投影图，后来事实上变成了一张**变换域中的结构型谱**：它不是单纯地回答“有没有缺陷”，而是把不同异常状态组织成了几种可解释、可比较、可复核的灰度结构模式。
+旋转之后，并不直接把 \(z'\) 当作新图像，而是将点集按 \((x',y')\) 投影到新的二维栅格中，并在每个栅格上累积响应。若记落入栅格 \((u,v)\) 的点数为 \(n(u,v)\)，则可将其累积响应写为
+\[
+A(u,v)=\sum_{k=0}^{n(u,v)-1} c\,\alpha^k,
+\]
+其中 \(c>0\) 为比例系数，\(\alpha\in(0,1)\) 为衰减系数。与此同时，每个栅格还记录对应点集的上包络与下包络：
+\[
+U(u,v)=\max z',\qquad L(u,v)=\min z'.
+\]
 
-为了更清楚地说明这一点，我将变换域中的典型表象整理为一张结构型谱图。需要强调的是，这张图并不是现场原始检测截图，而是对变换域中灰度结构关系的示意性抽象：它的作用不是替代现场证据，而是帮助解释为什么同一套线性变换与投影能够同时承担定位与判别两种任务。
+于是，变换域图像可记为
+\[
+T(u,v)=A(u,v).
+\]
 
-<figure style="text-align:center;">
-  <img src="{{ '/assets/images/belt-tread-defect-detection/transform-domain-structural-spectrum.png' | relative_url }}" alt="变换域中的典型表象（结构型谱）" style="max-width: 92%; height: auto;">
-  <figcaption>
-    图 4：变换域中的典型表象（结构型谱）。正常、搭接、翘起与未重合/虚接类在该域中具有不同的灰度结构模式。
-  </figcaption>
-</figure>
+这一步非常关键。它意味着：原空间中原本较厚、较散、难以直接界定的刀口结构，在新的参考系中经过投影后，会沿一条狭窄轨迹聚集起来，并在 \(T(u,v)\) 中表现为一条高灰度曲线。换句话说，所谓“亮线”，并不是人为画出来的，而是局部几何在变换域中发生塌缩与聚焦后形成的高响应脊线。
+
+更重要的是，这个变换最初虽然是为定位而设计的，但后来我发现，它实际上构造出了一个非常自然的判别域。不同接头状态在该域中的表象并不是任意的，而是呈现出稳定的灰度拓扑差异：
+
+- **正常对接**：通常表现为灰度较为均衡的矩形区域；有时中间可能仅有一条灰度略高、但并不突出的浅曲线。
+- **搭接**：在矩形区域中间出现一条高灰度曲线，并且紧贴该曲线的上方出现明显低灰度区域。
+- **翘起**：同样出现一条高灰度曲线，但明显低灰度区域位于该曲线下方。
+- **未重合 / 虚接类**：通常表现为矩形区域中间存在一条高灰度曲线，但不存在搭接或翘起那样紧贴亮线的明显低灰度区。
+
+因此，这个线性变换与投影图后来事实上变成了一张变换域中的**结构型谱**：它不只是辅助定位，更把不同异常状态组织成了几种可解释、可比较、可复核的灰度结构模式。
+
+在得到变换域中的关键点后，再通过逆变换
+\[
+p = R_x(-\theta)q
+\]
+将其映射回原始坐标系，最终得到料头范围及相关定位结果。也就是说，整个过程并不是停留在变换域中做“好看的图”，而是借助一个可逆的几何表示，把原本难以直接判别的局部结构变成更容易检测的信号，再准确地带回现场坐标系。
 
 ## 7. 为什么这和 CT / MR 有异曲同工之妙
 
