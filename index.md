@@ -168,7 +168,7 @@ $$
 为了更清楚地说明这一点，我将变换域中的典型表象整理为一张结构型谱图。需要强调的是，这张图并不是现场原始检测截图，而是对变换域中灰度结构关系的示意性抽象：它的作用不是替代现场证据，而是帮助解释为什么同一套线性变换与投影能够同时承担定位与判别两种任务。
 
 <figure style="text-align:center;">
-  <img src="{{ '/assets/images/belt-tread-defect-detection/transform-domain-structural-spectrum.png' | relative_url }}" alt="变换域中的典型表象（结构型谱）" style="max-width: 92%; height: auto;">
+  <img src="{{ '/assets/images/transform-domain-structural-spectrum.png' | relative_url }}" alt="变换域中的典型表象（结构型谱）" style="max-width: 92%; height: auto;">
   <figcaption>
     图 4：变换域中的典型表象（结构型谱）。正常、搭接、翘起与未重合/虚接类在该域中具有不同的灰度结构模式。
   </figcaption>
