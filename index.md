@@ -24,10 +24,6 @@ description: "A technical review of an industrial belt and tread defect detectio
 > **English Abstract**  
 > This article reconstructs an industrial online inspection scheme I developed during graduate study for belt and tread defect detection on a tire building drum. It was never fully written up as a paper or formal product document, even though its core algorithmic pipeline had already been implemented and validated in a real production setting. The value of the system did not lie merely in “detecting defects,” but in reformulating the task into a more natural combination of geometric measurement and transformed-domain pattern analysis. For the belt layer, the problem was organized around real-time measurement of width, center deviation, edge discontinuity, and head-tail relations. For the tread layer, a linear transform and projection were used to convert difficult local joint geometry in the original height field into stable structural patterns in a transformed domain, thereby unifying localization and defect discrimination in a single representation.
 
-> 这是我研究生阶段最成功的工业视觉项目之一。  
-> 由于后续人事与发表因素，这个项目当年没有形成正式论文或系统文档；原始配置文件与部分检测图像后来也已散失。  
-> 因此，本文并不试图把该系统“完整复原”为一篇无缺失的白皮书，而是基于现存代码、少量现场图像与方法记忆，对其核心问题、关键思路、算法骨架与工程组织方式进行一次技术档案化整理。
-
 这个项目面向轮胎成型鼓上的带束层与胎面在线检测。它并不是一个简单的“缺陷分类器”，而是一套需要在现场节拍下持续运行、实时输出工艺参数并稳定报警的几何测量系统。
 
 真正做下去之后，我逐渐意识到：这个问题的关键并不在于“识别图像中的某种异常纹理”，而在于如何把结构光高度图中原本纠缠在一起的曲面、边界、接头与局部变形，重新组织到一个更自然的几何表示中。也正是在这个意义上，这个项目后来成为我最早、也最典型的一次“表示先行”的工业算法实践。
