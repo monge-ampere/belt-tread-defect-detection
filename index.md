@@ -1,9 +1,23 @@
 ---
-layout: page
+layout: default
 title: "从高度场到结构型谱：一个带束层与胎面缺陷检测项目的技术回顾"
 description: "A technical review of an industrial belt and tread defect detection system based on structured-light height maps, geometric measurement, and transform-domain structural patterns."
-permalink: /
 ---
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
 
 # 从高度场到结构型谱
 
