@@ -1,9 +1,6 @@
 ---
-layout: post
-title: "从高度场到结构型谱：一个带束层与胎面缺陷检测项目的技术回顾"
-date: 2026-04-07 20:00:00 +0800
-categories: [industrial-vision, 3d-vision, geometry]
-tags: [轮胎检测, 带束层, 胎面, 结构光, 工业视觉, 几何测量]
+layout: default
+title: Belt and Tread Defect Detection
 ---
 
 # 从高度场到结构型谱：一个带束层与胎面缺陷检测项目的技术回顾
