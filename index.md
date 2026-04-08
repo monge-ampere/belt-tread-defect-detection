@@ -23,6 +23,8 @@ window.MathJax = {
 
 **A technical review of an industrial belt and tread defect detection system based on structured-light height maps, geometric measurement, and transform-domain structural patterns**
 
+*Wei Feng*
+
 这篇文章整理的是我在研究生阶段做过的一套带束层与胎面在线缺陷检测方案。它不是一个后来被完整写成论文或正式产品文档的项目；更准确地说，它是一套当时已经在真实现场跑通、但由于后续人事与发表因素，始终没有被正式写下来的工业视觉系统。
 
 它真正有价值的地方，并不在于“做了一个轮胎缺陷检测模块”，而在于它把原本容易被理解为普通图像识别的问题，改写成了一组更自然的**几何测量与变换域判别问题**：  
@@ -242,3 +244,8 @@ $$
 这篇文章仍然只是一个开始。由于原始配置文件、部分现场图像和部分工程资料已经散失，我不打算假装把它完整复原成一篇“无缺失”的白皮书。更现实、也更诚实的做法，是先把最核心的算法主线、工程骨架和方法论价值留下来。
 
 对我而言，这不是简单回忆过去，而是在为一段本该被正式写下来的工作，补一份迟到的技术档案。
+
+---
+
+**Author:** Wei Feng  
+**Email:** your_email@example.com
