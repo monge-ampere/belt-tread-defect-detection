@@ -247,5 +247,5 @@ $$
 
 ---
 
-**作者:** 冯玮（Wei Feng）
-**邮箱:** [weifeng@stu.ouc.edu.cn](mailto:weifeng@stu.ouc.edu.cn)
+**作者：** 冯玮（Wei Feng）  
+**邮箱：** [weifeng@stu.ouc.edu.cn](mailto:weifeng@stu.ouc.edu.cn)
