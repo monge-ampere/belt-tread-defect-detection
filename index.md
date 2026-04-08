@@ -23,7 +23,7 @@ window.MathJax = {
 
 **A technical review of an industrial belt and tread defect detection system based on structured-light height maps, geometric measurement, and transform-domain structural patterns**
 
-*冯玮*
+*冯玮（Wei Feng）*
 
 这篇文章整理的是我在研究生阶段做过的一套带束层与胎面在线缺陷检测方案。它不是一个后来被完整写成论文或正式产品文档的项目；更准确地说，它是一套当时已经在真实现场跑通、但由于后续人事与发表因素，始终没有被正式写下来的工业视觉系统。
 
