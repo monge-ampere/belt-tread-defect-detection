@@ -251,7 +251,7 @@ $$
 这部分并不是“附属实现细节”，而是项目能否真正落地的必要条件。在轮胎成型这样的连续节拍场景中，算法不仅要“算得对”，还要“流得动”：图像持续进入、缓冲有序更新、检测异步执行、结果稳定输出。如果没有这一层工程组织，再好的几何主线也很难真正成为现场系统。
 
 <figure style="text-align:center;">
-  <img src="{{ '/assets/images/belt-tread-defect-detection/DoubleCache.png' | relative_url }}" alt="双缓存架构示意图" style="max-width: 88%; height: auto;">
+  <img src="{{ '/assets/images/DoubleCache.png' | relative_url }}" alt="双缓存架构示意图" style="max-width: 88%; height: auto;">
   <figcaption>
     图 5：双缓存架构示意。图像加载、检测处理与结果输出在异步链路中解耦运行，使系统能够在连续进图条件下保持稳定的数据流与检测节拍。
   </figcaption>
